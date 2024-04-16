@@ -55,7 +55,7 @@ public partial class FreeLookCam : PivotBasedCameraRig
         m_TransformTargetRot = new Quaternion(Vector3.Up, Mathf.RadToDeg(m_LookAngle));
 
 
-        m_Target.Quaternion = m_TransformTargetRot;
+        //m_Target.Quaternion = m_TransformTargetRot;
 
 
 
