@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqs3b0053r1wf"]
+
+[ext_resource type="Script" path="res://Scripts/CharacterMovement.cs" id="1_fmw50"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3xs1y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wo0r7"]
+albedo_color = Color(1, 0.0941176, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_k81y2"]
+material = SubResource("StandardMaterial3D_wo0r7")
+
+[sub_resource type="BoxMesh" id="BoxMesh_m2mhh"]
+size = Vector3(1, 0.2, 0.2)
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_fmw50")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_3xs1y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_k81y2")
+
+[node name="Glasses" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Glasses"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
+mesh = SubResource("BoxMesh_m2mhh")
