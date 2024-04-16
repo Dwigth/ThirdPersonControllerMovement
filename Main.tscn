@@ -1,7 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://btft2o58vmhbt"]
+[gd_scene load_steps=6 format=3 uid="uid://btft2o58vmhbt"]
 
 [ext_resource type="Script" path="res://Scripts/Cameras/FreeLookCam.cs" id="1_1w7ml"]
-[ext_resource type="PackedScene" uid="uid://dqs3b0053r1wf" path="res://Player.tscn" id="1_jhgjt"]
+[ext_resource type="PackedScene" uid="uid://kce0uebt1ksc" path="res://Knight.tscn" id="3_0sca4"]
+
+[sub_resource type="Environment" id="Environment_rqyec"]
+tonemap_mode = 2
+tonemap_exposure = 0.7
+tonemap_white = 1.04
+ssao_enabled = true
+sdfgi_enabled = true
+volumetric_fog_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pjfnf"]
 size = Vector3(60, 2, 60)
@@ -10,6 +18,9 @@ size = Vector3(60, 2, 60)
 size = Vector3(60, 2, 60)
 
 [node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rqyec")
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -21,19 +32,21 @@ shape = SubResource("BoxShape3D_pjfnf")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/StaticBody3D"]
 mesh = SubResource("BoxMesh_k6t2n")
 
-[node name="CharacterBody3D" parent="." node_paths=PackedStringArray("m_Cam") instance=ExtResource("1_jhgjt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.43519, 0)
-m_Cam = NodePath("../CameraRig/Pivot/Camera3D")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.0505929, 0.998719, 0, -0.998719, -0.0505929, 0.244808, -0.136847, 0.194052)
+shadow_enabled = true
 
 [node name="CameraRig" type="Node3D" parent="." node_paths=PackedStringArray("m_Target")]
 script = ExtResource("1_1w7ml")
-m_Target = NodePath("../CharacterBody3D")
+m_Target = NodePath("../Knight")
 
 [node name="Pivot" type="Marker3D" parent="CameraRig"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54807, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 1, 7.07443)
+
+[node name="Knight" parent="." node_paths=PackedStringArray("m_Cam") instance=ExtResource("3_0sca4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+m_Cam = NodePath("../CameraRig/Pivot/Camera3D")
+m_PlayerHasComplexModel = true
