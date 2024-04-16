@@ -25,6 +25,7 @@ environment = SubResource("Environment_rqyec")
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/StaticBody3D"]
 shape = SubResource("BoxShape3D_pjfnf")
@@ -47,6 +48,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54807, 0)
 transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 1, 7.07443)
 
 [node name="Knight" parent="." node_paths=PackedStringArray("m_Cam") instance=ExtResource("3_0sca4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.65734, 0)
 m_Cam = NodePath("../CameraRig/Pivot/Camera3D")
 m_PlayerHasComplexModel = true

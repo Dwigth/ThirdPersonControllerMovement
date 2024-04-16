@@ -22,6 +22,8 @@ public partial class CharacterMovement : CharacterBody3D
 		"1H_Melee_Attack_Chop",
 		"1H_Melee_Attack_Slice_Horizontal"
 	};
+
+	private bool m_LastFloor = true;
 	public const float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -41,13 +43,32 @@ public partial class CharacterMovement : CharacterBody3D
 
 		// Add the gravity.
 		if (!IsOnFloor())
-		{
 			velocity.Y -= gravity * (float)delta;
-		}
+
+		//Debug.WriteLine($"{m_LastFloor} {IsOnFloor()}");
+
 
 		// Handle Jump.
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
+		{
 			velocity.Y = JumpVelocity;
+			m_Jumping = true;
+			m_AnimationTree.Set("parameters/conditions/jumping", true);
+			m_AnimationTree.Set("parameters/conditions/grounded", false);
+		}
+		if (IsOnFloor() && m_LastFloor == false)
+		{
+			m_Jumping = false;
+			m_AnimationTree.Set("parameters/conditions/jumping", false);
+			m_AnimationTree.Set("parameters/conditions/grounded", true);
+		}
+		if (!IsOnFloor() && m_Jumping == false)
+		{
+			m_AnimationState.Travel("Jump_Idle");
+			m_AnimationTree.Set("parameters/conditions/grounded", false);
+		}
+		m_LastFloor = IsOnFloor();
+
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
