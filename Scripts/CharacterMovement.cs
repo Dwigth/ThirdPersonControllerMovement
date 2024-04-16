@@ -23,7 +23,7 @@ public partial class CharacterMovement : CharacterBody3D
 			velocity.Y -= gravity * (float)delta;
 
 		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 			velocity.Y = JumpVelocity;
 
 		// Get the input direction and handle the movement/deceleration.
