@@ -78,7 +78,8 @@ public partial class CharacterMovement : CharacterBody3D
 			velocity.X = m_Move.X * m_Speed;
 			velocity.Z = m_Move.Z * m_Speed;
 
-			m_Model.LookAt(m_Move + Position);
+			m_Model.LookAt(-m_CamForward + Position);
+			LookAt(-m_CamForward + Position);
 
 			Vector3 velocityBlenPosition = velocity * Transform.Basis;
 			m_AnimationTree.Set("parameters/IWR/blend_position", new Vector2(velocityBlenPosition.X, -velocityBlenPosition.Z) / m_Speed);
